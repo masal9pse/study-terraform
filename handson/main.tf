@@ -2,7 +2,7 @@ provider "aws" {
  region = "ap-northeast-1"
 }
 
-resource "aws_vpc" "main" {
+resource "aws_vpc" "hello" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
@@ -11,7 +11,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public_1a" {
- vpc_id = "${aws_vpc.main.id}"
+ vpc_id = "${aws_vpc.hello.id}"
 
  availability_zone = "ap-northeast-1a"
 

@@ -1,1 +1,1 @@
-study Terraform
+作成中のLaravelアプリのインフラをterraformでコード化してECSでデプロイするための準備用リポジトリ

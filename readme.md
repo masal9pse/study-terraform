@@ -1,1 +1,3 @@
 作成中のLaravelアプリのインフラをterraformでコード化してECSでデプロイするための準備用リポジトリ
+
+terraform v0.11.13

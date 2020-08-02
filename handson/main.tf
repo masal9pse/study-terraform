@@ -470,7 +470,7 @@ resource "aws_ecs_service" "main" {
 }
 
 variable "domain" {
-  description = "aws-and-infra2.work"
+  description = "http://aws-and-infra2.work"
   type        = "string"
 
   #FIXME:

@@ -5,3 +5,5 @@ ec2-ssh/example*
 ec2-ssh/terraform.tfstate.backup
 ec2-ssh/.terraform
 ./ec2-ssh/terraform.output.tf
+node-app-ec2-ssh/example*
+node-app-ec2-ssh/.terraform

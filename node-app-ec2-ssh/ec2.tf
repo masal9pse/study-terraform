@@ -4,7 +4,7 @@
 #
 # ====================
 # 最新版のAmazonLinux2のAMI情報
-data "aws_ami" "example" {
+data "aws_ami" "node-app" {
   most_recent = true
   owners      = ["amazon"]
 
@@ -44,15 +44,15 @@ data "aws_ami" "example" {
 # EC2 Instance
 #
 # ====================
-resource "aws_instance" "example" {
-  ami                    = data.aws_ami.example.image_id
-  vpc_security_group_ids = [aws_security_group.example.id]
-  subnet_id              = aws_subnet.example.id
-  key_name               = aws_key_pair.example.id
+resource "aws_instance" "node-app" {
+  ami                    = data.aws_ami.node-app.image_id
+  vpc_security_group_ids = [aws_security_group.node-app.id]
+  subnet_id              = aws_subnet.node-app.id
+  key_name               = aws_key_pair.node-app.id
   instance_type          = "t2.micro"
 
   tags = {
-    Name = "example"
+    Name = "node-app"
   }
 }
 
@@ -61,8 +61,8 @@ resource "aws_instance" "example" {
 # Elastic IP
 #
 # ====================
-resource "aws_eip" "example" {
-  instance = aws_instance.example.id
+resource "aws_eip" "node-app" {
+  instance = aws_instance.node-app.id
   vpc      = true
 }
 
@@ -71,7 +71,7 @@ resource "aws_eip" "example" {
 # Key Pair
 #
 # ====================
-resource "aws_key_pair" "example" {
-  key_name   = "example"
+resource "aws_key_pair" "node-app" {
+  key_name   = "node-app"
   public_key = file("./example.pub") # 先程`ssh-keygen`コマンドで作成した公開鍵を指定
 }

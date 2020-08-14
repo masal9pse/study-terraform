@@ -3,13 +3,13 @@
 # VPC
 #
 # ====================
-resource "aws_vpc" "example" {
+resource "aws_vpc" "node-app" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true # DNS解決を有効化
   enable_dns_hostnames = true # DNSホスト名を有効化
 
   tags = {
-    Name = "example"
+    Name = "node-app"
   }
 }
 
@@ -18,16 +18,16 @@ resource "aws_vpc" "example" {
 # Subnet
 #
 # ====================
-resource "aws_subnet" "example" {
+resource "aws_subnet" "node-app" {
   cidr_block        = "10.0.1.0/24"
   availability_zone = "ap-northeast-1a"
-  vpc_id            = aws_vpc.example.id
+  vpc_id            = aws_vpc.node-app.id
 
   # trueにするとインスタンスにパブリックIPアドレスを自動的に割り当ててくれる
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "example"
+    Name = "node-app"
   }
 }
 
@@ -36,11 +36,11 @@ resource "aws_subnet" "example" {
 # Internet Gateway
 #
 # ====================
-resource "aws_internet_gateway" "example" {
-  vpc_id = aws_vpc.example.id
+resource "aws_internet_gateway" "node-app" {
+  vpc_id = aws_vpc.node-app.id
 
   tags = {
-    Name = "example"
+    Name = "node-app"
   }
 }
 
@@ -49,23 +49,23 @@ resource "aws_internet_gateway" "example" {
 # Route Table
 #
 # ====================
-resource "aws_route_table" "example" {
-  vpc_id = aws_vpc.example.id
+resource "aws_route_table" "node-app" {
+  vpc_id = aws_vpc.node-app.id
 
   tags = {
-    Name = "example"
+    Name = "node-app"
   }
 }
 
-resource "aws_route" "example" {
-  gateway_id             = aws_internet_gateway.example.id
-  route_table_id         = aws_route_table.example.id
+resource "aws_route" "node-app" {
+  gateway_id             = aws_internet_gateway.node-app.id
+  route_table_id         = aws_route_table.node-app.id
   destination_cidr_block = "0.0.0.0/0"
 }
 
-resource "aws_route_table_association" "example" {
-  subnet_id      = aws_subnet.example.id
-  route_table_id = aws_route_table.example.id
+resource "aws_route_table_association" "node-app" {
+  subnet_id      = aws_subnet.node-app.id
+  route_table_id = aws_route_table.node-app.id
 }
 
 # ====================
@@ -73,18 +73,18 @@ resource "aws_route_table_association" "example" {
 # Security Group
 #
 # ====================
-resource "aws_security_group" "example" {
-  vpc_id = aws_vpc.example.id
-  name   = "example"
+resource "aws_security_group" "node-app" {
+  vpc_id = aws_vpc.node-app.id
+  name   = "node-app"
 
   tags = {
-    Name = "example"
+    Name = "node-app"
   }
 }
 
 # インバウンドルール(ssh接続用)
 resource "aws_security_group_rule" "in_ssh" {
-  security_group_id = aws_security_group.example.id
+  security_group_id = aws_security_group.node-app.id
   type              = "ingress"
   cidr_blocks       = ["0.0.0.0/0"]
   from_port         = 22
@@ -94,7 +94,7 @@ resource "aws_security_group_rule" "in_ssh" {
 
 # インバウンドルール(pingコマンド用)
 resource "aws_security_group_rule" "in_icmp" {
-  security_group_id = aws_security_group.example.id
+  security_group_id = aws_security_group.node-app.id
   type              = "ingress"
   cidr_blocks       = ["0.0.0.0/0"]
   from_port         = -1
@@ -103,7 +103,7 @@ resource "aws_security_group_rule" "in_icmp" {
 }
 
 resource "aws_security_group_rule" "custom_tcp" {
-    security_group_id = aws_security_group.example.id
+    security_group_id = aws_security_group.node-app.id
     type              = "ingress"
     from_port         = 3000
     to_port           = 3000
@@ -113,7 +113,7 @@ resource "aws_security_group_rule" "custom_tcp" {
 
 # アウトバウンドルール(全開放)
 resource "aws_security_group_rule" "out_all" {
-  security_group_id = aws_security_group.example.id
+  security_group_id = aws_security_group.node-app.id
   type              = "egress"
   cidr_blocks       = ["0.0.0.0/0"]
   from_port         = 0

@@ -123,7 +123,7 @@ resource "aws_security_group_rule" "node-custom" {
 resource "aws_security_group_rule" "mongo-sg" {
     security_group_id = aws_security_group.node-app.id
     type              = "ingress"
-    from_port         = 0
+    from_port         = 27017
     to_port           = 27017
     protocol          = "tcp"
     cidr_blocks       = ["0.0.0.0/0"]

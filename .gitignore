@@ -9,3 +9,6 @@ node-app-ec2-ssh/example*
 node-app-ec2-ssh/.terraform
 node-app-ec2-ssh/terraform.tfstate.backup
 node-app-ec2-ssh/terraform.tfstate
+route53/.terraform
+route53/terraform.tfstate
+route53/terraform.tfstate.backup

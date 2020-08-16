@@ -1,3 +1,3 @@
 作成中のLaravelアプリのインフラをterraformでコード化してECSでデプロイするための準備用リポジトリ
-
-terraform v0.11.13
+その他terraformの勉強用も兼務
+tfenvでバージョン管理

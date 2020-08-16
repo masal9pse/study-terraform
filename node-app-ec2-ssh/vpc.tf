@@ -111,6 +111,25 @@ resource "aws_security_group_rule" "custom_tcp" {
     cidr_blocks       = ["0.0.0.0/0"]
 }
 
+resource "aws_security_group_rule" "node-custom" {
+    security_group_id = aws_security_group.node-app.id
+    type              = "ingress"
+    from_port         = 8000
+    to_port           = 8000
+    protocol          = "tcp"
+    cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "mongo-sg" {
+    security_group_id = aws_security_group.node-app.id
+    type              = "ingress"
+    from_port         = 0
+    to_port           = 27017
+    protocol          = "tcp"
+    cidr_blocks       = ["0.0.0.0/0"]
+    description       = "mongo"
+}
+
 # アウトバウンドルール(全開放)
 resource "aws_security_group_rule" "out_all" {
   security_group_id = aws_security_group.node-app.id
